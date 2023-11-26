@@ -1,31 +1,36 @@
-function myAdd(...nums) {
-    let res = 0;
-    for (const num of nums) {
-        res += num;
-    }
-    return res;
+function myAdd(numOne, numTwo) {
+    return numOne + numTwo;
 }
 
-function mySubtract(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res -= num;
-    }
-    return res;
+function mySubtract(numOne, numTwo) {
+    return numOne - numTwo;
 }
 
-function myMultiply(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res *= num;
-    }
-    return res;
+function myMultiply(numOne, numTwo) {
+    return numOne * numTwo;
 }
 
-function myDivide(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res *= (1/num);
+function myDivide(numOne, numTwo) {
+    return numOne / numTwo;
+}
+
+let numOne;
+let numTwo;
+let operation;
+
+function operate(numOne, numTwo, operation) {
+    let res;
+    if (operation === 'add') {
+        res = myAdd(numOne, numTwo)
+    }
+    if (operation === 'subtract') {
+        res = mySubtract(numOne, numTwo)
+    }
+    if (operation === 'multiply') {
+        res = myMultiply(numOne, numTwo)
+    }
+    if (operation === 'divide') {
+        res = myDivide(numOne, numTwo)
     }
     return res;
 }

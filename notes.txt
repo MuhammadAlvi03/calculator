@@ -1,6 +1,9 @@
 TODO:
+Link JS to HTML
 
 DOING:
+Operate function
+HTML/CSS UI
 
 
 DONE:
