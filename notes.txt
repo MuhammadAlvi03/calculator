@@ -1,9 +1,10 @@
 TODO:
-Add JS functionality to buttons (divs)
-Figure out operate function framework
+Add eventlistener to buttons for hover
+Add eventlistener to buttons to get args for functions
+
 
 DOING:
-
+Figure out operate function
 
 
 
