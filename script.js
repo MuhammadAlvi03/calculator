@@ -32,5 +32,5 @@ function operate(numOne, numTwo, operation) {
     if (operation === 'divide') {
         res = myDivide(numOne, numTwo)
     }
-    return res;
+    return res
 }

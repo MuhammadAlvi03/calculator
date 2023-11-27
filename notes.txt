@@ -3,10 +3,10 @@ Add JS functionality to buttons (divs)
 Figure out operate function framework
 
 DOING:
-Style buttons
+
 
 
 
 TEMP DONE:
 Functions: Add, Subtract, Multiply, Divide
-UI Flexboxes
+UI
