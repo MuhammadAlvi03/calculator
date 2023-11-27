@@ -1,10 +1,12 @@
 TODO:
-Link JS to HTML
+Add JS functionality to buttons (divs)
+Figure out operate function framework
 
 DOING:
-Operate function
-HTML/CSS UI
+Style buttons
 
 
-DONE:
+
+TEMP DONE:
 Functions: Add, Subtract, Multiply, Divide
+UI Flexboxes
