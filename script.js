@@ -71,12 +71,15 @@ function operate() {
 
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        if (display.textContent.length < 12) {
-            (lastInput === ('+' || '-' || '×' || '÷')) ?
-            display.textContent = '' + button.textContent:
-            display.textContent += button.textContent;
+        if (display.textContent.length <= 12) {
+            if (typeof(lastInput) === 'string') {   // if it was an operation
+                display.textContent = '' + button.textContent;
+                lastInput = Number(button.textContent);
+            } else if (typeof(lastInput) === 'number' || 'undefined') {
+                display.textContent += button.textContent;
+                lastInput = Number(button.textContent);
+            }
         }
-        lastInput = button.textContent;
     })
 })
 
@@ -138,12 +141,14 @@ const numOneDisplay = document.querySelector('.numOne');
 const numTwoDisplay = document.querySelector('.numTwo');
 const opDisplay = document.querySelector('.operation');
 const resDisplay = document.querySelector('.res');
+const lastInputDisplay = document.querySelector('.lastInput');
 
 time=setInterval(function(){
     numOneDisplay.textContent = 'numOne:' + numOne;
     numTwoDisplay.textContent = 'numTwo:' + numTwo;
     opDisplay.textContent =  'op:' + operation;
     resDisplay.textContent = 'res:' + res;
+    lastInputDisplay.textContent = 'inp:' + lastInput;
     },250);
 
 

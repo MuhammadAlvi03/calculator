@@ -2,11 +2,12 @@ TODO:
 Add a clear entry button
 Maybe change the hover effect on the operations to change color on press
 Make equals not bug out if numTwo is undefined
-Maybe make a lastInput variable
+Prevent defaults on operations if operation is defined
+
 
 DOING:
-Rework how display gets reset
 
 
 TEMP DONE:
 Negative button, decimal button
+Operation logic
