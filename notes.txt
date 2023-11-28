@@ -1,10 +1,11 @@
 TODO:
-Add eventlistener to buttons for hover
-Add eventlistener to buttons to get args for functions
+Add a backspace button
 
 
 DOING:
-Figure out operate function
+Populate display.textContent with current num var
+make equals return the res
+make the operations work
 
 
 
