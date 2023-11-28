@@ -1,14 +1,12 @@
 TODO:
-Add a backspace button
+Add a clear entry button
+Make negative button work
 
 
 DOING:
-Populate display.textContent with current num var
-make equals return the res
-make the operations work
-
+Rework how display gets reset
 
 
 TEMP DONE:
-Functions: Add, Subtract, Multiply, Divide
-UI
+
+UI: everything
