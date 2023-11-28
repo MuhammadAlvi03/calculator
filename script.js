@@ -30,6 +30,7 @@ let numOne;
 let numTwo;
 let operation;
 let res;
+let lastInput;
 
 
 function myAdd() {
@@ -37,7 +38,7 @@ function myAdd() {
 }
 
 function mySubtract() {
-    return numOne - numTwo;
+    return numOne - Number(numTwo);
 }
 
 function myMultiply() {
@@ -66,50 +67,40 @@ function operate() {
     console.log(res);
 }
 
+
+
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
         if (display.textContent.length < 12) {
-        display.textContent += button.textContent;
-        console.log(button.textContent); //
+            (lastInput === ('+' || '-' || '×' || '÷')) ?
+            display.textContent = '' + button.textContent:
+            display.textContent += button.textContent;
         }
+        lastInput = button.textContent;
     })
 })
 
-// bug below: if there is an operation defined, does not reset display
-// maybe solution is: if operation exists && something else, make display to numOne,
-// as the previous result would be stored in num
+
 
 opButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        if (operation) {
+        operation = button.textContent;
+        if (numOne) {
             numTwo = Number(display.textContent);
             operate();
-            display.textContent = (Math.round(res * 100000) / 100000);
-            numOne = (Math.round(res * 100) / 100);
-        }
-        if (!numOne) {
+            display.textContent = (Math.round(res * 10000) / 10000);
             numOne = Number(display.textContent);
-        } else if (numOne) {
-            numTwo = Number(display.textContent);
+        } else {
+            numOne = Number(display.textContent);
         }
-        if (!operation) {display.textContent = '';}
-        operation = button.textContent;
-        console.log(operation); //
+        lastInput = button.textContent;
     })
 })
 
 
-clearButton.addEventListener('click', () => {
-    display.textContent = '';
-    numOne = undefined;
-    numTwo = undefined;
-    operation = undefined;
-    res = undefined;
-})
 
 equalsButton.addEventListener('click', () => {
     numTwo = Number(display.textContent);
-    console.log(equalsButton.textContent); // 
     operate();
     display.textContent = (Math.round(res * 10000) / 10000);
     numOne = (Math.round(res * 100) / 100);
@@ -124,4 +115,37 @@ decimalButton.addEventListener('click', () => {
     }
 })
 
-// debugger: console.log(numOne, numTwo, operation, res);
+
+let negativeSign = '-';
+negativeButton.addEventListener('click', () => {
+    if (!display.textContent.includes(negativeSign, 0)) {
+        display.textContent = negativeSign.concat(display.textContent);
+    } else if (display.textContent.includes(negativeSign, 0)) {
+        display.textContent = display.textContent.replace(negativeSign, '');
+    }
+})
+
+clearButton.addEventListener('click', () => {
+    display.textContent = '';
+    numOne = undefined;
+    numTwo = undefined;
+    operation = undefined;
+    res = undefined;
+})
+
+// debugger: console.log(numOne, numTwo, operation, res, display.textContent);
+const numOneDisplay = document.querySelector('.numOne');
+const numTwoDisplay = document.querySelector('.numTwo');
+const opDisplay = document.querySelector('.operation');
+const resDisplay = document.querySelector('.res');
+
+time=setInterval(function(){
+    numOneDisplay.textContent = 'numOne:' + numOne;
+    numTwoDisplay.textContent = 'numTwo:' + numTwo;
+    opDisplay.textContent =  'op:' + operation;
+    resDisplay.textContent = 'res:' + res;
+    },250);
+
+
+// styles
+

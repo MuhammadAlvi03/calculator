@@ -1,12 +1,12 @@
 TODO:
 Add a clear entry button
-Make negative button work
-
+Maybe change the hover effect on the operations to change color on press
+Make equals not bug out if numTwo is undefined
+Maybe make a lastInput variable
 
 DOING:
 Rework how display gets reset
 
 
 TEMP DONE:
-
-UI: everything
+Negative button, decimal button
