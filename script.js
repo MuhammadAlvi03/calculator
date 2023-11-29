@@ -21,6 +21,7 @@ const equalsButton = document.querySelector('.equals');
 const opButtons = document.querySelectorAll('.opButton');
 
 const clearButton = document.querySelector('.clear');
+const clearEntryButton = document.querySelector('.clearEntry');
 const negativeButton = document.querySelector('.negative');
 const decimalButton = document.querySelector('.decimal');
 
@@ -31,7 +32,7 @@ let numTwo;
 let operation;
 let res;
 let lastInput;
-
+let opArr = [];
 
 function myAdd() {
     return numOne + numTwo;
@@ -87,28 +88,35 @@ numButtons.forEach((button) => {
 })
 
 
-
-
 opButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        button.style.backgroundColor = 'rgb(78, 78, 78)';
-        if (numOne) {   // if a calculation has already been made
-            numTwo = Number(display.textContent);
-            if (numTwo === 0 && operation === '÷') {
-                display.textContent = 'CAN\'T DIVIDE BY 0!';
+        if (checkPressed() === false) {
+            button.style.backgroundColor = 'rgb(78, 78, 78)';
+            if (numOne) {   // if a calculation has already been made
+                numTwo = Number(display.textContent);
+                if (numTwo === 0 && operation === '÷') {
+                    display.textContent = 'CAN\'T DIVIDE BY 0!';
+                } else {
+                    operate();
+                    display.textContent = (Math.round(res * 10000) / 10000);
+                    numOne = Number(display.textContent);
+                }
             } else {
-                operate();
-                display.textContent = (Math.round(res * 10000) / 10000);
                 numOne = Number(display.textContent);
+                operation = button.textContent;
             }
-        } else {
-            numOne = Number(display.textContent);
+            lastInput = button.textContent;
+            operation = button.textContent;
+        } else if (checkPressed() === true) {
+            resetColor();
+            button.style.backgroundColor = 'rgb(78, 78, 78)';
+            lastInput = button.textContent;
             operation = button.textContent;
         }
-        lastInput = button.textContent;
-        operation = button.textContent;
     })
 })
+
+
 
 
 
@@ -160,28 +168,29 @@ clearButton.addEventListener('click', () => {
     resetColor();
 })
 
+clearEntryButton.addEventListener('click', () => {
+    display.textContent = display.textContent.replace(display.textContent[display.textContent.length -1], '');
+})
 
-// styles
+
+function checkPressed() {
+    opArr = Array.from(opButtons);
+    return opArr.some(pressed);
+}
+
+function pressed(element) {
+    return element.style.backgroundColor == 'rgb(78, 78, 78)'
+}
+
 
 function resetColor() {
     opButtons.forEach((button) => {
         button.style.backgroundColor = 'rgb(37,37,38)'
     })
 }
-// debugger: console.log(numOne, numTwo, operation, res, display.textContent);
-const numOneDisplay = document.querySelector('.numOne');
-const numTwoDisplay = document.querySelector('.numTwo');
-const opDisplay = document.querySelector('.operation');
-const resDisplay = document.querySelector('.res');
-const lastInputDisplay = document.querySelector('.lastInput');
 
-time=setInterval(function(){
-    numOneDisplay.textContent = 'numOne:' + numOne;
-    numTwoDisplay.textContent = 'numTwo:' + numTwo;
-    opDisplay.textContent =  'op:' + operation;
-    resDisplay.textContent = 'res:' + res;
-    lastInputDisplay.textContent = 'inp:' + lastInput;
-    },500);
+// document.addEventListener('keydown', (event) => {
+//     let name = event.key;
+//     console.log(name)
 
-
-let opArr = [];
+// })

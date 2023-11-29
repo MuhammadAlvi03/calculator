@@ -1,49 +1,29 @@
-// debugger: console.log(numOne, numTwo, operation, res, display.textContent);
+// debugger: console.log(numOne, numTwo, operation, res, display.textContent, lastInput);
+
+<div class="debugger">debug:
+<p class="numOne"></p>
+<p class="operation"></p>
+<p class="numTwo"></p>
+<p class="res"></p>
+<p class="lastInput"></p>
+</div>
+
 const numOneDisplay = document.querySelector('.numOne');
 const numTwoDisplay = document.querySelector('.numTwo');
 const opDisplay = document.querySelector('.operation');
 const resDisplay = document.querySelector('.res');
+const lastInputDisplay = document.querySelector('.lastInput');
 
 time=setInterval(function(){
     numOneDisplay.textContent = 'numOne:' + numOne;
     numTwoDisplay.textContent = 'numTwo:' + numTwo;
     opDisplay.textContent =  'op:' + operation;
     resDisplay.textContent = 'res:' + res;
-    },1000);
+    lastInputDisplay.textContent = 'inp:' + lastInput;
+    },500);
 
 
-function myAdd(...nums) {
-    let res = 0;
-    for (const num of nums) {
-        res += num;
-    }
-    return res;
-}
-
-function mySubtract(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res -= num;
-    }
-    return res;
-}
-
-function myMultiply(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res *= num;
-    }
-    return res;
-}
-
-function myDivide(initial, ...nums) {
-    let res = initial;
-    for (const num of nums) {
-        res *= (1/num);
-    }
-    return res;
-}
-
+// old numButton function
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
         console.log(button.textContent);    //
@@ -79,21 +59,7 @@ opButtons.forEach((button) => {
 })
 
 
-/*
 
-in case 1: the equal sign should operate, and set res to numOne
-in case 2: the 2nd plus sigbn should operate, and set res to numOne
-in case 3: the 2nd and 3rd plus signs should operate, and set res to numOne
-
-case 1 at eval: has a numOne, but not numTwo. the equals should assign
-numTwo to the current display
-
-case 2 at eval: has a 
-
-
-evaluation should basically set numOne to the res, and
-
-*/
 
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
@@ -152,8 +118,8 @@ opButtons.forEach((button) => {
 
 
 
-// if button is pressed, for loop, then change shit
-// else do normal shit:
+// if button is pressed, for loop, then change stuff
+// else do normal stuff:
 
 if (numOne) {   // if a calculation has already been made
     numTwo = Number(display.textContent);
@@ -173,12 +139,83 @@ operation = button.textContent;
 
 
 
-for (const button of opButtons) {
-    if (button.style.backgroundColor == 'rgb(78, 78, 78)') {
-        button.style.backgroundColor = 'rgb(37, 37, 38)'
-        operation = button.textContent;
-        lastInput = button.textContent;
-    }
-}
-
 // new try:
+opButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (checkPressed() === false) {
+            button.style.backgroundColor = 'rgb(78, 78, 78)';
+            if (numOne) {   // if a calculation has already been made
+                numTwo = Number(display.textContent);
+                if (numTwo === 0 && operation === '÷') {
+                    display.textContent = 'CAN\'T DIVIDE BY 0!';
+                } else {
+                    operate();
+                    display.textContent = (Math.round(res * 10000) / 10000);
+                    numOne = Number(display.textContent);
+                }
+            } else {
+                numOne = Number(display.textContent);
+                operation = button.textContent;
+            }
+            lastInput = button.textContent;
+            operation = button.textContent;
+        } else if (checkPressed() === true) {
+            resetColor();
+            button.style.backgroundColor = 'rgb(78, 78, 78)';
+            lastInput = button.textContent;
+            operation = button.textContent;
+        }
+    })
+})
+
+
+
+
+// V1.0
+opButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        button.style.backgroundColor = 'rgb(78, 78, 78)';
+        if (numOne) {   // if a calculation has already been made
+            numTwo = Number(display.textContent);
+            if (numTwo === 0 && operation === '÷') {
+                display.textContent = 'CAN\'T DIVIDE BY 0!';
+            } else {
+                operate();
+                display.textContent = (Math.round(res * 10000) / 10000);
+                numOne = Number(display.textContent);
+            }
+        } else {
+            numOne = Number(display.textContent);
+            operation = button.textContent;
+        }
+        lastInput = button.textContent;
+        operation = button.textContent;
+    })
+})
+
+
+// V2.0
+opButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (checkPressed() === false) {
+            button.style.backgroundColor = 'rgb(78, 78, 78)';
+            if (numOne) {   // if a calculation has already been made
+                numTwo = Number(display.textContent);
+                if (numTwo === 0 && operation === '÷') {
+                    display.textContent = 'CAN\'T DIVIDE BY 0!';
+                } else {
+                    operate();
+                    display.textContent = (Math.round(res * 10000) / 10000);
+                    numOne = Number(display.textContent);
+                }
+            } else {
+                numOne = Number(display.textContent);
+                operation = button.textContent;
+            }
+            lastInput = button.textContent;
+            operation = button.textContent;
+        } else if (checkPressed() === true) {
+            alert('hi!');
+        }
+    })
+})

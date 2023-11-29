@@ -1,12 +1,6 @@
 TODO:
-Add a clear entry button
-Maybe change the hover effect on the operations to change color on press
+Publish on GitHub
 
 DOING:
-Prevent actions on operations if operation is defined
-make a checkPressed function to try to solve operation button bug
-
-
-
-TEMP DONE:
+Add keyboard support for operations
 
