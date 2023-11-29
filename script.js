@@ -71,6 +71,9 @@ function operate() {
 
 numButtons.forEach((button) => {
     button.addEventListener('click', () => {
+        opButtons.forEach((button) => {
+            button.style.backgroundColor = 'rgb(37,37,38)'
+        })
         if (display.textContent.length <= 12) {
             if (typeof(lastInput) === 'string') {   // if it was an operation
                 display.textContent = '' + button.textContent;
@@ -85,31 +88,50 @@ numButtons.forEach((button) => {
 
 
 
+
 opButtons.forEach((button) => {
     button.addEventListener('click', () => {
-        operation = button.textContent;
-        if (numOne) {
+        button.style.backgroundColor = 'rgb(78, 78, 78)';
+        if (numOne) {   // if a calculation has already been made
             numTwo = Number(display.textContent);
-            operate();
-            display.textContent = (Math.round(res * 10000) / 10000);
-            numOne = Number(display.textContent);
+            if (numTwo === 0 && operation === '÷') {
+                display.textContent = 'CAN\'T DIVIDE BY 0!';
+            } else {
+                operate();
+                display.textContent = (Math.round(res * 10000) / 10000);
+                numOne = Number(display.textContent);
+            }
         } else {
             numOne = Number(display.textContent);
+            operation = button.textContent;
         }
         lastInput = button.textContent;
+        operation = button.textContent;
     })
 })
 
 
 
 equalsButton.addEventListener('click', () => {
-    numTwo = Number(display.textContent);
-    operate();
-    display.textContent = (Math.round(res * 10000) / 10000);
-    numOne = (Math.round(res * 100) / 100);
-    numTwo = undefined;
-    res = undefined;
-    operation = undefined;
+    if (numOne) {
+        numTwo = Number(display.textContent);
+        if (numTwo === 0 && operation === '÷') {
+            display.textContent = 'CAN\'T DIVIDE BY 0!';
+            numOne = undefined;
+            numTwo = undefined;
+            res = undefined;
+            operation = undefined;
+            lastInput = 0;
+        } else {
+            operate();
+            display.textContent = (Math.round(res * 10000) / 10000);
+            numOne = undefined;
+            numTwo = undefined;
+            res = undefined;
+            operation = undefined;
+            lastInput = 0;
+        }
+    }
 });
 
 decimalButton.addEventListener('click', () => {
@@ -134,8 +156,18 @@ clearButton.addEventListener('click', () => {
     numTwo = undefined;
     operation = undefined;
     res = undefined;
+    lastInput = undefined;
+    resetColor();
 })
 
+
+// styles
+
+function resetColor() {
+    opButtons.forEach((button) => {
+        button.style.backgroundColor = 'rgb(37,37,38)'
+    })
+}
 // debugger: console.log(numOne, numTwo, operation, res, display.textContent);
 const numOneDisplay = document.querySelector('.numOne');
 const numTwoDisplay = document.querySelector('.numTwo');
@@ -149,8 +181,7 @@ time=setInterval(function(){
     opDisplay.textContent =  'op:' + operation;
     resDisplay.textContent = 'res:' + res;
     lastInputDisplay.textContent = 'inp:' + lastInput;
-    },250);
+    },500);
 
 
-// styles
-
+let opArr = [];

@@ -126,3 +126,59 @@ opButtons.forEach((button) => {
         }
     })
 })
+
+
+opButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        button.style.backgroundColor = 'rgb(78, 78, 78)';
+        if (numOne) {   // if a calculation has already been made
+            numTwo = Number(display.textContent);
+            if (numTwo === 0 && operation === '÷') {
+                display.textContent = 'CAN\'T DIVIDE BY 0!';
+            } else {
+                operate();
+                display.textContent = (Math.round(res * 10000) / 10000);
+                numOne = Number(display.textContent);
+            }
+        } else {
+            numOne = Number(display.textContent);
+            operation = button.textContent;
+        }
+        lastInput = button.textContent;
+        operation = button.textContent;
+    })
+})
+
+
+
+
+// if button is pressed, for loop, then change shit
+// else do normal shit:
+
+if (numOne) {   // if a calculation has already been made
+    numTwo = Number(display.textContent);
+    if (numTwo === 0 && operation === '÷') {
+        display.textContent = 'CAN\'T DIVIDE BY 0!';
+    } else {
+        operate();
+        display.textContent = (Math.round(res * 10000) / 10000);
+        numOne = Number(display.textContent);
+    }
+} else {
+    numOne = Number(display.textContent);
+    operation = button.textContent;
+}
+lastInput = button.textContent;
+operation = button.textContent;
+
+
+
+for (const button of opButtons) {
+    if (button.style.backgroundColor == 'rgb(78, 78, 78)') {
+        button.style.backgroundColor = 'rgb(37, 37, 38)'
+        operation = button.textContent;
+        lastInput = button.textContent;
+    }
+}
+
+// new try:
